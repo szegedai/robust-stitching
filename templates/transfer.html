@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+
+<body>
+
+    <h1>Dr. Frankenstein report</h1>
+    
+    <br>
+    <div class='code'>{{ runner_code }}</div>
+    
+    <h3>Clean accuracy, loss and robust accuracies</h3>
+
+    <table>
+        <tr>
+            <th>Model</th>
+            <th>Accuracy</th>
+            <th>Loss</th>
+            <th>Robustness</th>
+            <th>Transfer (Front)</th>
+            <th>Transfer (Back)</th>
+        </tr>
+        <tr>
+            <th>Front model</th>
+            <td>{{ model_results.front.acc }}</td>
+            <td>{{ model_results.front.loss }}</td>
+	        <td>{{ model_results.front.autoattack }}</td>
+	        <td>{{ model_results.front.front_transfer }}</td>
+	        <td>{{ model_results.front.end_transfer }}</td>
+        </tr>
+        <tr>
+            <th>End model</th>
+            <td>{{ model_results.end.acc }} </td>
+            <td>{{ model_results.end.loss }}</td>
+	        <td>{{ model_results.end.autoattack }}</td>
+	        <td>{{ model_results.end.front_transfer }}</td>
+	        <td>{{ model_results.end.end_transfer }}</td>
+        </tr>
+        <tr>
+            <th>Front model transfer Frank</th>
+            <td>{{ front_trans.acc }} </td>
+            <td>{{ front_trans.loss }}</td>
+	        <td>{{ front_trans.autoattack }}</td>
+	        <td>{{ front_trans.front_transfer }}</td>
+	        <td>{{ front_trans.end_transfer }}</td>
+        </tr>
+        <tr>
+            <th>End model transfer Frank</th>
+            <td>{{ end_trans.acc }} </td>
+            <td>{{ end_trans.loss }}</td>
+	        <td>{{ end_trans.autoattack }}</td>
+            <td>{{ end_trans.front_transfer }}</td>
+	        <td>{{ end_trans.end_transfer }}</td>
+        </tr>
+        <tr>
+            <th>Both models transfer Frank</th>
+            <td>{{ both_trans.acc }} </td>
+            <td>{{ both_trans.loss }}</td>
+	        <td>{{ both_trans.autoattack }}</td>
+            <td>{{ both_trans.front_transfer }}</td>
+	        <td>{{ both_trans.end_transfer }}</td>
+        </tr>
+        <tr>
+            <th>Representation union Frank</th>
+            <td>{{ repr_union.acc }} </td>
+            <td>{{ repr_union.loss }}</td>
+	        <td>{{ repr_union.autoattack }}</td>
+            <td>{{ repr_union.front_transfer }}</td>
+	        <td>{{ repr_union.end_transfer }}</td>
+        </tr>
+    </table>
+
+    <table class='param_table'>
+        <tr>
+            <th> front_model </th>
+            <td> {{ params.front_model }}</td>
+        </tr>
+        <tr>
+            <th> end_model </th>
+            <td> {{ params.end_model }}</td>
+        </tr>
+        <tr>
+            <th> front_layer </th>
+            <td> {{ params.front_layer }}</td>
+        </tr>
+        <tr>
+            <th> end_layer </th>
+            <td> {{ params.end_layer }}</td>
+        </tr>
+        <tr>
+            <th> dataset </th>
+            <td> {{ params.dataset }}</td>
+        </tr>
+        <tr>
+            <th> flatten </th>
+            <td> {{ params.flatten }}</td>
+        </tr>
+        <tr>
+            <th> epochs </th>
+            <td> {{ params.epochs }}</td>
+        </tr>
+        <tr>
+            <th> l1_reg </th>
+            <td> {{ params.l1 }}</td>
+        </tr>
+        <tr>
+            <th> weight_decay </th>
+            <td> {{ params.weight_decay }}</td>
+        </tr>
+        <tr>
+            <th> start_lr </th>
+            <td> {{ params.lr }}</td>
+        </tr>
+        <tr>
+            <th> batch_size </th>
+            <td> {{ params.batch_size }}</td>
+        </tr>
+        <tr>
+            <th> init </th>
+            <td> {{ params.init }}</td>
+        </tr>
+    </table>
+
+
+    <div class='datetime'>{{time}}</div>
+</body>
+
+</html>

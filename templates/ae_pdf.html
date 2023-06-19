@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+
+<body>
+
+    <h1>Dr. Frankenstein report</h1>
+
+
+    <img src='{{ plots.matrix }}' alt='matrix' class='matrix'>
+    <!--<img src='{{ plots.final_bias }}' alt='bias' class='matrix'>-->
+    
+    <br>
+    <div class='code'>{{ runner_code }}</div>
+    
+    <h3>Losses</h3>
+
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Front model</th>
+            <th>End model</th>
+            <th>Frank</th>
+            <th>PsInv (train)</th>
+            <th>PsInv (val)</th>
+        </tr>
+        <tr>
+            <th>Train Loss</th>
+            <td>{{ model_results.front.train_loss }}</td>
+            <td>{{ model_results.end.train_loss }}</td>
+	        <td>{{ model_results.trans.train_loss }}</td>
+            <td>{{ model_results.train_ps_inv.train_loss }}</td>
+            <td>{{ model_results.ps_inv.train_loss }}</td>
+        </tr>
+        <tr>
+            <th>Val Loss</th>
+            <td>{{ model_results.front.val_loss }}</td>
+            <td>{{ model_results.end.val_loss }}</td>
+	        <td>{{ model_results.trans.val_loss }}</td>
+            <td>{{ model_results.train_ps_inv.val_loss }}</td>
+            <td>{{ model_results.ps_inv.val_loss }}</td>
+        </tr>
+    </table>
+
+    <h3>Encoder ranges</h3>
+    <p>Front model: 
+        [{{ encoder_ranges.front.min }} .. {{encoder_ranges.front.max}}]
+    </p>
+    <p>End model: 
+        [{{ encoder_ranges.end.min }} .. {{encoder_ranges.end.max}}]
+    </p>
+    <p>Frank model: 
+        [{{ encoder_ranges.frank.min }} .. {{encoder_ranges.frank.max}}] (after transformation)
+    </p>
+    <p>Ps_Inv (train) model: 
+        [{{ encoder_ranges.ps_inv_train.min }} .. {{encoder_ranges.ps_inv_train.max}}] (after transformation)
+    </p>
+    <p>Ps_Inv (val) model: 
+        [{{ encoder_ranges.ps_inv.min }} .. {{encoder_ranges.ps_inv.max}}] (after transformation)
+    </p>
+
+    <table class='param_table'>
+        <tr>
+            <th> cka </th>
+            <td> {{ cka }}</td>
+        </tr>
+	      <tr>
+            <th> cka_frank </th>
+            <td> {{ cka_frank }}</td>
+        </tr>
+
+        <tr>
+            <th> cka_ps_inv </th>
+            <td> {{ cka_ps_inv }}</td>
+        </tr>
+        <tr>
+            <th> mse </th>
+            <td> {{ l2 }}</td>
+        </tr>
+	      <tr>
+            <th> mse_frank </th>
+            <td> {{ l2_frank }}</td>
+        </tr>
+        <tr>
+            <th> mse_ps_inv </th>
+            <td> {{ l2_ps_inv }}</td>
+        </tr>
+        <tr>
+            <th> frank_m2_logit_cka </th>
+            <td> {{ frank_m2_logit_cka }}</td>
+        </tr>
+        <tr>
+            <th> ps_inv_m2_logit_cka </th>
+            <td> {{ ps_inv_m2_logit_cka }}</td>
+        </tr>
+        <tr>
+            <th> frank_m2_logit_l2 </th>
+            <td> {{ frank_m2_logit_l2 }}</td>
+        </tr>
+        <tr>
+            <th> ps_inv_m2_logit_l2 </th>
+            <td> {{ ps_inv_m2_logit_l2 }}</td>
+        </tr>
+
+        
+	      <tr>
+            <th> front_model </th>
+            <td> {{ params.front_model }}</td>
+        </tr>
+        <tr>
+            <th> end_model </th>
+            <td> {{ params.end_model }}</td>
+        </tr>
+        <tr>
+            <th> front_layer </th>
+            <td> {{ params.front_layer }}</td>
+        </tr>
+        <tr>
+            <th> end_layer </th>
+            <td> {{ params.end_layer }}</td>
+        </tr>
+        <tr>
+            <th> dataset </th>
+            <td> {{ params.dataset }}</td>
+        </tr>
+        <tr>
+            <th> flatten </th>
+            <td> {{ params.flatten }}</td>
+        </tr>
+        <tr>
+            <th> epochs </th>
+            <td> {{ params.epochs }}</td>
+        </tr>
+        <tr>
+            <th> l1_reg </th>
+            <td> {{ params.l1 }}</td>
+        </tr>
+        <tr>
+            <th> weight_decay </th>
+            <td> {{ params.weight_decay }}</td>
+        </tr>
+        <tr>
+            <th> start_lr </th>
+            <td> {{ params.lr }}</td>
+        </tr>
+        <tr>
+            <th> batch_size </th>
+            <td> {{ params.batch_size }}</td>
+        </tr>
+        <tr>
+            <th> init </th>
+            <td> {{ params.init }}</td>
+        </tr>
+    </table>
+
+    <h4>Training curves</h4>
+    
+    <img src='{{ plots.front_model }}' alt='m1' class='lr_curve'>
+    <img src='{{ plots.end_model }}' alt='m2' class='lr_curve'>
+    <img src='{{ plots.frank }}' alt='frank' class='lr_curve'>
+    
+    <div class="pagebreak"> </div>
+    
+    <h4>Original and reconstructed examples</h4>
+    <h5>Model #1</h5>
+    <img src='{{ plots.ae_examples_m1 }}' alt='m1_ae_examples' class='ae_example'>
+    <h5>Model #2</h5>
+    <img src='{{ plots.ae_examples_m2 }}' alt='m2_ae_examples' class='ae_example'>
+    <h5>Frank model</h5>
+    <img src='{{ plots.ae_examples_frank }}' alt='frank_ae_examples' class='ae_example'>
+    <h5>PsInv model</h5>
+    <img src='{{ plots.ae_examples_ps_inv }}' alt='frank_ae_examples' class='ae_example'>
+
+
+    <h4>Matrices in range(-1,1)</h4>
+    <img src='{{ plots.matrix_normed }}' alt='matrix_normed' class='matrix'>
+
+
+    <div class='datetime'>{{time}}</div>
+</body>
+
+</html>

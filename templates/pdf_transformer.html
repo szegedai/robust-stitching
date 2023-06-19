@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+
+<body>
+
+    <h1>Dr. Frankenstein report</h1>
+
+
+    <img src='{{ plots.matrix }}' alt='matrix' class='matrix'>
+    <!--<img src='{{ plots.final_bias }}' alt='bias' class='matrix'>-->
+
+    <br>
+    <div class='code'>{{ runner_code }}</div>
+
+    <h3>Clean accuracy, loss and robust accuracies</h3>
+
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Front model</th>
+            <th>End model</th>
+            <th>Frank</th>
+        </tr>
+        <tr>
+            <th>Loss</th>
+            <td>{{ model_results.front.loss }}</td>
+            <td>{{ model_results.end.loss }}</td>
+            <td>{{ model_results.trans.loss }}</td>
+        </tr>
+        <tr>
+            <th>Acc</th>
+            <td>{{ model_results.front.acc }} </td>
+            <td>{{ model_results.end.acc }}</td>
+            <td>{{ model_results.trans.acc }}</td>
+        </tr>
+        <tr>
+            <th>FGSM (eps=0.2)</th>
+            <td>{{ model_results.front.fastgrad }} </td>
+            <td>{{ model_results.end.fastgrad }}</td>
+            <td>{{ model_results.trans.fastgrad }}</td>
+        </tr>
+        <tr>
+            <th>AutoAttack (aPGDx2)</th>
+            <td>{{ model_results.front.autoattack }} </td>
+            <td>{{ model_results.end.autoattack }}</td>
+            <td>{{ model_results.trans.autoattack }}</td>
+        </tr>
+    </table>
+
+    <h3>Frank model's transfer adversarial accuracies</h3>
+    <table>
+        <tr>
+            <th>Attack</th>
+            <th>Generated for Model #1</th>
+            <th>Generated for Model #2</th>
+        </tr>
+        <tr>
+            <th>FGSM</th>
+            <td>{{ transfer_results.m1_transfer.fastgrad }}</td>
+            <td>{{ transfer_results.m2_transfer.fastgrad }}</td>
+        </tr>
+        <tr>
+            <th>AutoAttack (aPGDx2)</th>
+            <td>{{ transfer_results.m1_transfer.autoattack }} </td>
+            <td>{{ transfer_results.m2_transfer.autoattack }}</td>
+        </tr>
+    </table>
+
+
+    <table class='param_table'>
+        <tr>
+            <th> front_model </th>
+            <td> {{ params.front_model }}</td>
+        </tr>
+        <tr>
+            <th> end_model </th>
+            <td> {{ params.end_model }}</td>
+        </tr>
+        <tr>
+            <th> front_layer </th>
+            <td> {{ params.front_layer }}</td>
+        </tr>
+        <tr>
+            <th> end_layer </th>
+            <td> {{ params.end_layer }}</td>
+        </tr>
+        <tr>
+            <th> dataset </th>
+            <td> {{ params.dataset }}</td>
+        </tr>
+        <tr>
+            <th> flatten </th>
+            <td> {{ params.flatten }}</td>
+        </tr>
+        <tr>
+            <th> epochs </th>
+            <td> {{ params.epochs }}</td>
+        </tr>
+        <tr>
+            <th> l1_reg </th>
+            <td> {{ params.l1 }}</td>
+        </tr>
+        <tr>
+            <th> weight_decay </th>
+            <td> {{ params.weight_decay }}</td>
+        </tr>
+        <tr>
+            <th> start_lr </th>
+            <td> {{ params.lr }}</td>
+        </tr>
+        <tr>
+            <th> batch_size </th>
+            <td> {{ params.batch_size }}</td>
+        </tr>
+        <tr>
+            <th> init </th>
+            <td> {{ params.init }}</td>
+        </tr>
+    </table>
+
+    <h4>Training curves</h4>
+
+    <img src='{{ plots.front_model }}' alt='m1' class='lr_curve'>
+    <img src='{{ plots.end_model }}' alt='m2' class='lr_curve'>
+    <img src='{{ plots.frank }}' alt='frank' class='lr_curve'>
+
+
+    <h4>Matrices in range(-1,1)</h4>
+    <img src='{{ plots.matrix_normed }}' alt='matrix_normed' class='matrix'>
+
+
+    <div class='datetime'>{{time}}</div>
+</body>
+
+</html>
